@@ -1,0 +1,41 @@
+EVAL_CROP_SIZE: (473, 473) # (width, height), for unpadding rangescaling and stepscaling
+TRAIN_CROP_SIZE: (473, 473) # (width, height), for unpadding rangescaling and stepscaling
+AUG:
+    AUG_METHOD: "stepscaling" # choice unpadding rangescaling and stepscaling
+    FIX_RESIZE_SIZE: (473, 473) # (width, height), for unpadding
+    INF_RESIZE_VALUE: 500  # for rangescaling
+    MAX_RESIZE_VALUE: 473  # for rangescaling
+    MIN_RESIZE_VALUE: 473  # for rangescaling
+    MAX_SCALE_FACTOR: 2.0  # for stepscaling
+    MIN_SCALE_FACTOR: 0.5  # for stepscaling
+    SCALE_STEP_SIZE: 0.25  # for stepscaling
+    MIRROR: True
+BATCH_SIZE: 8
+MEAN: [0.406, 0.456, 0.485]
+STD: [0.225, 0.224, 0.229]
+DATASET:
+    DATA_DIR: "./data"
+    IMAGE_TYPE: "rgb"  # choice rgb or rgba
+    NUM_CLASSES: 20
+    TEST_FILE_LIST: "data/list/test.txt"
+    TRAIN_FILE_LIST: "data/list/trainval.txt"
+    VAL_FILE_LIST: "data/list/val.txt"
+    IGNORE_INDEX: 255
+FREEZE:
+    MODEL_FILENAME: "model"
+    PARAMS_FILENAME: "params"
+MODEL:
+    MODEL_NAME: "ACE2P"
+    DEFAULT_NORM_TYPE: "bn"
+TEST:
+    TEST_MODEL: "snapshots/ACE2P"
+TRAIN:
+    MODEL_SAVE_DIR: "snapshots/LIP_ACE2P"
+    PRETRAINED_MODEL_DIR: u"pretrain/paddle_resnet101_v2"
+    SNAPSHOT_EPOCH: 10
+    SYNC_BATCH_NORM: True
+SOLVER:
+    LR: 0.007
+    LR_POLICY: "cosine"
+    OPTIMIZER: "sgd"
+    NUM_EPOCHS: 150
